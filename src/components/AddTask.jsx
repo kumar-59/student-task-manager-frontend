@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API = "https://student-task-manager-2-60lq.onrender.com/api/tasks";
+
 export default function AddTask({ refresh }) {
   const [form, setForm] = useState({
     title: "",
@@ -16,7 +18,7 @@ export default function AddTask({ refresh }) {
   const submitTask = async () => {
     if (!form.title) return alert("Title required");
 
-    await axios.post("http://localhost:5000/api/tasks", form);
+    await axios.post(API, form);
     setForm({ title: "", description: "", priority: "low", dueDate: "" });
     refresh();
   };

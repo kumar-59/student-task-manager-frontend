@@ -3,19 +3,21 @@ import axios from "axios";
 import TaskCard from "./TaskCard";
 import FilterBar from "./FilterBar";
 
-export default function TaskList({ reload }) {
+const API = "https://student-task-manager-2-60lq.onrender.com/api/tasks";
+
+export default function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all");
   const [sort, setSort] = useState("");
 
   const fetchTasks = async () => {
-    const res = await axios.get("http://localhost:5000/api/tasks");
+    const res = await axios.get(API);
     setTasks(res.data);
   };
 
   useEffect(() => {
     fetchTasks();
-  }, [reload]);
+  }, []);
 
   const filteredTasks = tasks
     .filter(task => {

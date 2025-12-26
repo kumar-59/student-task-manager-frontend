@@ -1,27 +1,27 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API = "https://student-task-manager-2-60lq.onrender.com/api/tasks";
+
 export default function TaskCard({ task, refresh }) {
   const [edit, setEdit] = useState(false);
   const [title, setTitle] = useState(task.title);
 
   const toggleComplete = async () => {
-    await axios.put(`http://localhost:5000/api/tasks/${task._id}`, {
+    await axios.put(`${API}/${task._id}`, {
       completed: !task.completed
     });
     refresh();
   };
 
   const saveEdit = async () => {
-    await axios.put(`http://localhost:5000/api/tasks/${task._id}`, {
-      title
-    });
+    await axios.put(`${API}/${task._id}`, { title });
     setEdit(false);
     refresh();
   };
 
   const deleteTask = async () => {
-    await axios.delete(`http://localhost:5000/api/tasks/${task._id}`);
+    await axios.delete(`${API}/${task._id}`);
     refresh();
   };
 
@@ -39,7 +39,7 @@ export default function TaskCard({ task, refresh }) {
       )}
 
       <p>Priority: {task.priority}</p>
-      <p>Due: {task.dueDate?.slice(0,10)}</p>
+      <p>Due: {task.dueDate?.slice(0, 10)}</p>
 
       <button onClick={toggleComplete}>
         {task.completed ? "Undo" : "Complete"}
